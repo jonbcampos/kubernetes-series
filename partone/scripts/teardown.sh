@@ -16,3 +16,4 @@ gcloud container clusters delete ${CLUSTER_NAME} --quiet
 gcloud container clusters list
 
 echo "remove container"
+gcloud container images delete gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} --force-delete-tags --quiet
