@@ -14,3 +14,5 @@ gcloud config set compute/zone ${INSTANCE_ZONE}
 echo "remove cluster"
 gcloud container clusters delete ${CLUSTER_NAME} --quiet
 gcloud container clusters list
+
+echo "remove container"
