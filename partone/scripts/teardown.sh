@@ -9,7 +9,6 @@ export CLUSTER_NAME=${PROJECT_NAME}-cluster
 export CONTAINER_NAME=${PROJECT_NAME}-container
 
 echo "setup"
-gcloud config set core/project ${GCLOUD_PROJECT}
 gcloud config set compute/zone ${INSTANCE_ZONE}
 
 echo "remove cluster"

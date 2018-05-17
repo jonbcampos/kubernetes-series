@@ -11,12 +11,6 @@ export CONTAINER_NAME=${PROJECT_NAME}-container
 echo "setup"
 gcloud config set compute/zone ${INSTANCE_ZONE}
 
-echo "install kubectl"
-gcloud components install kubectl
-
-echo "login to gcp docker"
-gcloud auth configure-docker
-
 echo "enable services"
 gcloud services enable compute.googleapis.com
 gcloud services enable container.googleapis.com
@@ -46,4 +40,4 @@ echo "enable services"
 gcloud services enable cloudbuild.googleapis.com
 
 echo "building containers"
-gcloud container builds submit -t gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} .
+gcloud container builds submit -t gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} ../

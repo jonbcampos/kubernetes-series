@@ -2,7 +2,7 @@
   "name": "partone",
   "version": "0.0.1",
   "description": "kubernetes blog series part one",
-  "license": "apache v2.0",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/jonbcampos/kubernetes-series"
