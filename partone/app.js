@@ -58,6 +58,10 @@ app.get('/version', function (req, res, next) {
     const version = pkg.version;
     res.status(200).json({ version });
 });
+process.on('SIGTERM', function (){
+   // cleanup environment, this is about to be shut down
+   process.exit(0);
+});
 
 //-------------------------------------
 //

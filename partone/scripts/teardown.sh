@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "preparing..."
-export GCLOUD_PROJECT=[your_project_name]
+export GCLOUD_PROJECT=$(gcloud config get-value project)
 export INSTANCE_REGION=us-central1
 export INSTANCE_ZONE=us-central1-a
 export PROJECT_NAME=partone

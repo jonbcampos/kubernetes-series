@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "preparing..."
-export GCLOUD_PROJECT=[your_project_name]
+export GCLOUD_PROJECT=$(gcloud config get-value project)
 export INSTANCE_REGION=us-central1
 export INSTANCE_ZONE=us-central1-a
 export PROJECT_NAME=partone
@@ -9,23 +9,10 @@ export CLUSTER_NAME=${PROJECT_NAME}-cluster
 export CONTAINER_NAME=${PROJECT_NAME}-container
 
 echo "setup"
-gcloud config set core/project ${GCLOUD_PROJECT}
 gcloud config set compute/zone ${INSTANCE_ZONE}
-
-echo "update local env"
-gcloud components update
-
-echo "login to gcloud"
-gcloud auth login
-
-echo "set project id"
-gcloud config set project ${GCLOUD_PROJECT}
 
 echo "install kubectl"
 gcloud components install kubectl
-
-echo "login to kubectl"
-gcloud auth application-default login
 
 echo "login to gcp docker"
 gcloud auth configure-docker
@@ -54,3 +41,9 @@ kubectl get pods
 
 echo "list production services"
 kubectl get svc
+
+echo "enable services"
+gcloud services enable cloudbuild.googleapis.com
+
+echo "building containers"
+gcloud container builds submit -t gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} .
