@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: endpoints
+  labels:
+    app: kubernetes-series
+    tier: endpoints
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: endpoints
+  template:
+    metadata:
+      labels:
+        app: kubernetes-series
+        tier: endpoints
+    spec:
+      containers:
+        - name: partone-container
+          image: gcr.io/[PROJECT_NAME]/partone-container:latest
+          env:
+            - name: GCLOUD_PROJECT
+              value: [PROJECT_NAME]
+            # we are going to use this later
+            # for now it creates a custom endpoint
+            # for this pod
+            - name: POD_ENDPOINT
+              value: endpoint
+            - name: NODE_ENV
+              value: production
+          ports:
+            - containerPort: 80
