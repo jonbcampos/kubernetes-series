@@ -12,7 +12,7 @@ echo "setup"
 gcloud config set compute/zone ${INSTANCE_ZONE}
 
 echo "name replace"
-sed -i 's/[PROJECT_NAME]/${GCLOUD_PROJECT}/g' ../k8s/deployment.yaml
+sed -i "s/PROJECT_NAME/${GCLOUD_PROJECT}/g" ../k8s/deployment.yaml
 
 echo "create pod-replicaset"
 kubectl apply -f ../k8s/deployment.yaml

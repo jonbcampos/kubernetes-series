@@ -18,10 +18,10 @@ spec:
     spec:
       containers:
         - name: partone-container
-          image: gcr.io/[PROJECT_NAME]/partone-container:latest
+          image: gcr.io/PROJECT_NAME/partone-container:latest
           env:
             - name: GCLOUD_PROJECT
-              value: [PROJECT_NAME]
+              value: PROJECT_NAME
             # we are going to use this later
             # for now it creates a custom endpoint
             # for this pod
