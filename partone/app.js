@@ -6,6 +6,7 @@ const config = require('./config');
 const healthCheck = require('express-healthcheck');
 const pkg = require('./package');
 const bodyParser = require('body-parser');
+const os = require('os');
 
 //-------------------------------------
 //
@@ -58,9 +59,9 @@ app.get('/version', function (req, res, next) {
     const version = pkg.version;
     res.status(200).json({ version });
 });
-process.on('SIGTERM', function (){
-   // cleanup environment, this is about to be shut down
-   process.exit(0);
+process.on('SIGTERM', function () {
+    // cleanup environment, this is about to be shut down
+    process.exit(0);
 });
 
 //-------------------------------------
