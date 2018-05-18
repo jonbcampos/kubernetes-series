@@ -41,4 +41,3 @@ gcloud services enable cloudbuild.googleapis.com
 
 echo "building containers"
 gcloud container builds submit -t gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} ../
-#gcloud container builds submit -t gcr.io/wrkerz-test-3/partone-container ../
