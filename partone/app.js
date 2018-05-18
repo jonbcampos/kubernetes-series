@@ -15,6 +15,9 @@ const os = require('os');
 //-------------------------------------
 const app = express();
 app.use(logger('dev'));
+app.set('json spaces', 2);
+app.set('trust proxy', true);
+app.set('case sensitive routing', true);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -35,12 +38,16 @@ app.use(function (req, res, next) {
 //
 //-------------------------------------
 app.use('/', function (req, res, next) {
+    res.status(200).json({});
+});
+
+app.use('/api', function (req, res, next) {
     const remoteAddress = req.connection.remoteAddress;
     const hostName = os.hostname();
     res.status(200).json({ remoteAddress, hostName });
 });
 
-app.use(`/${config.get('POD_ENDPOINT')}`, function (req, res, next) {
+app.use(`/api/${config.get('POD_ENDPOINT')}`, function (req, res, next) {
     const remoteAddress = req.connection.remoteAddress;
     const hostName = os.hostname();
     res.status(200).json({ remoteAddress, hostName });
