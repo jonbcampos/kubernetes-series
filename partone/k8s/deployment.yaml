@@ -1,24 +1,32 @@
 apiVersion: apps/v1beta1
-kind: Deployment
+kind: Deployment # it is a deployment
 metadata:
-  name: endpoints
+  name: endpoints # name of the Deployment
   labels:
+    # any Pods with matching labels are included in this Deployment
     app: kubernetes-series
     tier: endpoints
 spec:
-  replicas: 3
+  # ReplicaSet specification
+  replicas: 3 # we are making 3 Pods
   selector:
     matchLabels:
+      # ReplicaSet labels will match Pods with the following labels
       tier: endpoints
   template:
+    # Pod template
     metadata:
       labels:
+        # Pod's labels
         app: kubernetes-series
         tier: endpoints
     spec:
+      # Pod specification
       containers:
+        # the container(s) in this Pod
         - name: partone-container
           image: gcr.io/PROJECT_NAME/partone-container:latest
+          # environment variables for the Pod
           env:
             - name: GCLOUD_PROJECT
               value: PROJECT_NAME

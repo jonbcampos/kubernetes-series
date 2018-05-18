@@ -1,8 +1,10 @@
 apiVersion: v1
-kind: Service
+kind: Service # a way for the outside world to reach the Pods
 metadata:
+  # any Pods with matching labels are included in this Service
   name: endpoints
 spec:
+  # Service ports
   ports:
     - name: http
       port: 80
@@ -12,6 +14,7 @@ spec:
       port: 443
       targetPort: 8443
       protocol: TCP
+  # It includes a LoadBalancer between Pods
   type: LoadBalancer
   selector:
     app: kubernetes-series
