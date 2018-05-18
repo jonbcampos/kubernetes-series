@@ -1,12 +1,9 @@
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
 const logger = require('morgan');
 const config = require('./config');
 const healthCheck = require('express-healthcheck');
 const pkg = require('./package');
-const bodyParser = require('body-parser');
-const os = require('os');
 
 //-------------------------------------
 //
@@ -23,41 +20,11 @@ app.use(express.urlencoded({ extended: false }));
 
 //-------------------------------------
 //
-// we are using json for everything that this service handles
-//
-//-------------------------------------
-app.use(bodyParser.json());
-app.use(function (req, res, next) {
-    res.set('Content-Type', 'application/json');
-    next();
-});
-
-//-------------------------------------
-//
-// setup some routes for us to hit
-//
-//-------------------------------------
-app.use('/', function (req, res, next) {
-    res.status(200).json({});
-});
-
-app.use('/api', function (req, res, next) {
-    const remoteAddress = req.connection.remoteAddress;
-    const hostName = os.hostname();
-    res.status(200).json({ remoteAddress, hostName });
-});
-
-app.use(`/api/${config.get('POD_ENDPOINT')}`, function (req, res, next) {
-    const remoteAddress = req.connection.remoteAddress;
-    const hostName = os.hostname();
-    res.status(200).json({ remoteAddress, hostName });
-});
-
-//-------------------------------------
-//
+// setup some routes for us to hit and
 // other helpful routes when working with kubernetes
 //
 //-------------------------------------
+app.use('/', require('./routes'));
 app.use('/healthcheck', healthCheck());
 app.use('/readiness', function (req, res, next) {
     res.status(200).json({ ready: true });
@@ -94,5 +61,18 @@ app.use(function (err, req, res, next) {
     // render the error page
     res.status(err.status || 500).json(err.response);
 });
+
+//-------------------------------------
+//
+// create server if this is main
+//
+//-------------------------------------
+if (module === require.main) {
+    // Start the server
+    const server = app.listen(config.get('PORT'), () => {
+        const port = server.address().port;
+        console.log(`App listening on port ${port}`);
+    });
+}
 
 module.exports = app;

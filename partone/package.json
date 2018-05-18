@@ -23,7 +23,6 @@
   },
   "scripts": {
     "start": "node ./bin/www",
-    "start-prod": "node ./bin/index.js",
     "debug": "node $NODE_DEBUG_OPTION ./app.js",
     "auth": "gcloud auth application-default login"
   },
