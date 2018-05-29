@@ -8,7 +8,7 @@ You can read the accompanying post for this folder here:
 
 To run this code here are the quick steps.
 
-###To startup and deploy with autoscaling:
+### To startup and deploy with autoscaling:
 ```bash
 git clone https://github.com/jonbcampos/kubernetes-series.git
 cd kubernetes-series/autoscalin/scripts
@@ -17,7 +17,7 @@ sh deploy.sh
 sh check-endpoint.sh
 ```
 
-###To startup and deploy withOUT autoscaling:
+### To startup and deploy withOUT autoscaling:
 ```bash
 git clone https://github.com/jonbcampos/kubernetes-series.git
 cd kubernetes-series/autoscalin/scripts
@@ -26,7 +26,7 @@ sh deploy.sh
 sh check-endpoint.sh
 ```
 
-###To Teardown:
+### To Teardown:
 ```bash
 cd kubernetes-series/autoscalin/scripts # if necessary
 sh teardown.sh
