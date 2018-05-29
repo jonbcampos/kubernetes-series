@@ -11,7 +11,7 @@ To run this code here are the quick steps.
 ### To startup and deploy with autoscaling:
 ```bash
 git clone https://github.com/jonbcampos/kubernetes-series.git
-cd kubernetes-series/autoscalin/scripts
+cd kubernetes-series/autoscaling/scripts
 sh startup.sh
 sh deploy.sh
 sh check-endpoint.sh
@@ -20,7 +20,7 @@ sh check-endpoint.sh
 ### To startup and deploy withOUT autoscaling:
 ```bash
 git clone https://github.com/jonbcampos/kubernetes-series.git
-cd kubernetes-series/autoscalin/scripts
+cd kubernetes-series/autoscaling/scripts
 sh startup_wo_autoscaling.sh
 sh deploy.sh
 sh check-endpoint.sh
@@ -28,6 +28,6 @@ sh check-endpoint.sh
 
 ### To Teardown:
 ```bash
-cd kubernetes-series/autoscalin/scripts # if necessary
+cd kubernetes-series/autoscaling/scripts # if necessary
 sh teardown.sh
 ```
