@@ -46,3 +46,25 @@ gcloud services enable cloudbuild.googleapis.com
 
 echo "building containers"
 gcloud container builds submit -t gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} ../
+
+echo "wait for ip address for cluster"
+CLUSTER_IP=""
+while [ -z $CLUSTER_IP ]; do
+  echo "Waiting for end point..."
+  CLUSTER_IP=$(kubectl get svc endpoints --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
+  [ -z "$CLUSTER_IP" ] && sleep 10
+done
+
+echo "name replace"
+sed -i "s/PROJECT_NAME/${GCLOUD_PROJECT}/g" ../k8s/deployment.yaml
+sed -i "s/CONTAINER_NAME/${CONTAINER_NAME}/g" ../k8s/deployment.yaml
+
+echo "create pod-replicaset"
+kubectl apply -f ../k8s/deployment.yaml
+kubectl apply -f ../k8s/service.yaml
+
+echo "====================================================="
+echo "="
+echo "= your load balancer is available at ${CLUSTER_IP}"
+echo "="
+echo "====================================================="

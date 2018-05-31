@@ -1,0 +1,36 @@
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: locust-master
+  labels:
+    name: locust
+    role: master
+spec:
+  replicas: 1
+  selector:
+    name: locust
+    role: master
+  template:
+    metadata:
+      labels:
+        name: locust
+        role: master
+    spec:
+      containers:
+        - name: locust
+          image: gcr.io/PROJECT_ID/CONTAINER_NAME:latest
+          env:
+            - name: LOCUST_MODE
+              value: master
+            - name: TARGET_HOST
+              value: LOAD_RUNNER_TARGET_HOST
+          ports:
+            - name: loc-master-web
+              containerPort: 8089
+              protocol: TCP
+            - name: loc-master-p1
+              containerPort: 5557
+              protocol: TCP
+            - name: loc-master-p2
+              containerPort: 5558
+              protocol: TCP

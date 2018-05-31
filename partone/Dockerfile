@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 FROM gcr.io/google_appengine/nodejs
+MAINTAINER Jonathan Campos <jonbcampos@gmail.com>
 RUN /usr/local/bin/install_node '>=0.12.7'
 COPY . /app/
 RUN npm install --unsafe-perm || \

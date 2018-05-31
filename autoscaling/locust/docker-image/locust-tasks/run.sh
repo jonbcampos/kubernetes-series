@@ -1,4 +1,6 @@
-# Copyright 2018 Jonathan Campos
+#!/bin/bash
+
+# Copyright 2015 Google Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,12 +13,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM gcr.io/google_appengine/nodejs
-MAINTAINER Jonathan Campos <jonbcampos@gmail.com>
-RUN /usr/local/bin/install_node '>=0.12.7'
-COPY . /app/
-RUN npm install --unsafe-perm || \
-    ((if [ -f npm-debug.log ]; then \
-        cat npm-debug.log; \
-    fi) && false)
-CMD npm start
+
+
+LOCUST="/usr/local/bin/locust"
+LOCUS_OPTS="-f /locust-tasks/tasks.py --host=$TARGET_HOST"
+LOCUST_MODE=${LOCUST_MODE:-standalone}
+
+if [[ "$LOCUST_MODE" = "master" ]]; then
+    LOCUS_OPTS="$LOCUS_OPTS --master"
+elif [[ "$LOCUST_MODE" = "worker" ]]; then
+    LOCUS_OPTS="$LOCUS_OPTS --slave --master-host=$LOCUST_MASTER"
+fi
+
+echo "$LOCUST $LOCUS_OPTS"
+
+$LOCUST $LOCUS_OPTS
