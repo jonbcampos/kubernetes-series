@@ -7,6 +7,7 @@ export INSTANCE_ZONE=us-central1-b
 export PROJECT_NAME=locust-tasks
 export CLUSTER_NAME=${PROJECT_NAME}-cluster
 export CONTAINER_NAME=${PROJECT_NAME}-container
+export CLUSTER_IP = $1
 
 echo "setup"
 gcloud config set compute/zone ${INSTANCE_ZONE}
@@ -40,14 +41,6 @@ kubectl get svc
 echo "building containers"
 gcloud container builds submit -t gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} ../locust/docker-image
 
-echo "wait for ip address for cluster"
-CLUSTER_IP=""
-while [ -z $CLUSTER_IP ]; do
-  echo "Waiting for end point..."
-  CLUSTER_IP=$(kubectl get svc locust --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
-  [ -z "$CLUSTER_IP" ] && sleep 10
-done
-
 echo "deploy locust-master-controller"
 sed -i "s/PROJECT_NAME/${GCLOUD_PROJECT}/g" ../locust/k8s/locust-master-controller.yaml
 sed -i "s/LOAD_RUNNER_TARGET_HOST/${CLUSTER_IP}/g" ../locust/k8s/locust-master-controller.yaml
@@ -72,8 +65,16 @@ kubectl create -f ../locust/k8s/locust-worker-controller.yaml
 echo "confirm worker controller launched"
 kubectl get pods -l name=locust,role=worker
 
+echo "wait for ip address for cluster"
+external_ip=""
+while [ -z $external_ip ]; do
+  echo "Waiting for end point..."
+  external_ip=$(kubectl get svc locust --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
+  [ -z "$external_ip" ] && sleep 10
+done
+
 echo "====================================================="
 echo "="
-echo "= your load balancer is available at ${CLUSTER_IP}"
+echo "= your load balancer is available at ${external_ip}"
 echo "="
 echo "====================================================="
