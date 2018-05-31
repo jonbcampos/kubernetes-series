@@ -7,7 +7,7 @@ export INSTANCE_ZONE=us-central1-b
 export PROJECT_NAME=locust-tasks
 export CLUSTER_NAME=${PROJECT_NAME}-cluster
 export CONTAINER_NAME=${PROJECT_NAME}-container
-export CLUSTER_IP = $1
+export CLUSTER_IP=$1
 
 echo "setup"
 gcloud config set compute/zone ${INSTANCE_ZONE}
