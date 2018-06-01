@@ -69,7 +69,7 @@ echo "wait for ip address for cluster"
 external_ip=""
 while [ -z $external_ip ]; do
   echo "Waiting for end point..."
-  external_ip=$(kubectl get svc locust --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
+  external_ip=$(kubectl get svc locust-master --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
   [ -z "$external_ip" ] && sleep 10
 done
 
