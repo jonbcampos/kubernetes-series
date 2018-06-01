@@ -76,6 +76,6 @@ done
 
 echo "====================================================="
 echo "="
-echo "= your load balancer is available at ${external_ip}"
+echo "= your test runner is available at ${external_ip}:8089"
 echo "="
 echo "====================================================="
