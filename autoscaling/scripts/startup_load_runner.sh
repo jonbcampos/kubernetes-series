@@ -43,6 +43,7 @@ gcloud container builds submit -t gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} ../
 
 echo "deploy locust-master-controller"
 sed -i "s/PROJECT_NAME/${GCLOUD_PROJECT}/g" ../locust/k8s/locust-master-controller.yaml
+sed -i "s/CONTAINER_NAME/${CONTAINER_NAME}/g" ../locust/k8s/locust-master-controller.yaml
 sed -i "s/LOAD_RUNNER_TARGET_HOST/${CLUSTER_IP}/g" ../locust/k8s/locust-master-controller.yaml
 kubectl create -f ../locust/k8s/locust-master-controller.yaml
 

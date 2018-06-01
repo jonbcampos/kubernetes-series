@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: locust
-          image: gcr.io/PROJECT_ID/CONTAINER_NAME:latest
+          image: gcr.io/PROJECT_NAME/CONTAINER_NAME:latest
           env:
             - name: LOCUST_MODE
               value: worker
