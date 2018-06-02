@@ -38,6 +38,9 @@ kubectl get pods
 echo "list production services"
 kubectl get svc
 
+echo "add autoscaling"
+kubectl autoscale deployment endpoints --cpu-percent=50 --min=1 --max=10
+
 echo "building containers"
 gcloud container builds submit -t gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} ../locust/docker-image
 

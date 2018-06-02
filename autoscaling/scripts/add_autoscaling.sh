@@ -20,3 +20,5 @@ gcloud container node-pools create ${CLUSTER_NAME}-pool \
     --cluster ${CLUSTER_NAME} \
     --enable-autoscaling --min-nodes 3 --max-nodes 10 \
     --zone ${INSTANCE_ZONE}
+
+kubectl autoscale deployment endpoints --cpu-percent=10 --min=1 --max=10

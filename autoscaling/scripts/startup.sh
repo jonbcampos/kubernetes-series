@@ -29,6 +29,9 @@ gcloud container clusters list
 echo "get credentials"
 gcloud container clusters get-credentials ${CLUSTER_NAME} --zone ${INSTANCE_ZONE}
 
+echo "add autoscaling"
+kubectl autoscale deployment endpoints --cpu-percent=10 --min=1 --max=10
+
 echo "confirm connection to cluster"
 kubectl cluster-info
 

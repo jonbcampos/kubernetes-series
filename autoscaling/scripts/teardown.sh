@@ -11,6 +11,9 @@ export CONTAINER_NAME=${PROJECT_NAME}-container
 echo "setup"
 gcloud config set compute/zone ${INSTANCE_ZONE}
 
+echo "clear out load runner if it still exists"
+sh teardown_load_runner.sh
+
 echo "remove cluster"
 gcloud container clusters delete ${CLUSTER_NAME} --quiet
 gcloud container clusters list
