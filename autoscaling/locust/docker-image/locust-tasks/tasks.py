@@ -21,7 +21,7 @@ from datetime import datetime
 from locust import HttpLocust, TaskSet, task
 
 
-class TaskSet(TaskSet):
+class CustomTaskSet(TaskSet):
     _deviceid = None
 
     def on_start(self):
@@ -49,6 +49,6 @@ class TaskSet(TaskSet):
 
 
 class LocustRunner(HttpLocust):
-    task_set = TaskSet
+    task_set = CustomTaskSet
     min_wait = 5000
     max_wait = 15000
