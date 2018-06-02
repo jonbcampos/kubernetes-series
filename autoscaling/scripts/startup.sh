@@ -20,8 +20,8 @@ gcloud container clusters create ${CLUSTER_NAME} \
     --preemptible \
     --zone ${INSTANCE_ZONE} \
     --scopes cloud-platform \
-    --enable-autoscaling --min-nodes 3 --max-nodes 10 \
-    --num-nodes 3
+    --enable-autoscaling --min-nodes 0 --max-nodes 10 \
+    --num-nodes 1
 
 echo "confirm cluster is running"
 gcloud container clusters list
