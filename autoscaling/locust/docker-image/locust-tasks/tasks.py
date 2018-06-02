@@ -37,15 +37,15 @@ class TaskSet(TaskSet):
 
     @task(1)
     def healthcheck(self):
-        self.client.post("/healthcheck")
+        self.client.get("/healthcheck")
 
     @task(1)
     def readiness(self):
-        self.client.post("/readiness")
+        self.client.get("/readiness")
 
     @task(1)
     def version(self):
-        self.client.post("/version")
+        self.client.get("/version")
 
 
 class LocustRunner(HttpLocust):
