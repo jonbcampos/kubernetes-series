@@ -22,11 +22,6 @@ from locust import HttpLocust, TaskSet, task
 
 
 class CustomTaskSet(TaskSet):
-    _deviceid = None
-
-    def on_start(self):
-        self._deviceid = str(uuid.uuid4())
-
     @task(1)
     def index(self):
         self.client.get('/')

@@ -25,4 +25,4 @@ spec:
             - name: LOCUST_MASTER
               value: locust-master
             - name: TARGET_HOST
-              value: LOAD_RUNNER_TARGET_HOST
+              value: http://LOAD_RUNNER_TARGET_HOST
