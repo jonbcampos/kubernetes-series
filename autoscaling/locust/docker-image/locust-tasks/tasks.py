@@ -29,28 +29,26 @@ class TaskSet(TaskSet):
 
     @task(1)
     def index(self):
-        self.client.get('/')\
+        self.client.get('/')
 
-    @task(10)
-    def api(self):
-        self.client.get('/api')\
-
-    @task(10)
+    @task(1)
     def api(self):
         self.client.get('/api')
 
-    @task(30)
+    @task(1)
     def healthcheck(self):
-        self.client.post("/healthcheck")\
+        self.client.post("/healthcheck")
 
-    @task(30)
+    @task(1)
     def readiness(self):
-        self.client.post("/readiness")\
+        self.client.post("/readiness")
 
-    @task(30)
+    @task(1)
     def version(self):
         self.client.post("/version")
 
 
 class LocustRunner(HttpLocust):
     task_set = TaskSet
+    min_wait = 5000
+    max_wait = 15000
