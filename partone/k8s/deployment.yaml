@@ -26,6 +26,28 @@ spec:
         # the container(s) in this Pod
         - name: partone-container
           image: gcr.io/PROJECT_NAME/partone-container:latest
+          # the readiness probe details
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /readiness
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 3
+            successThreshold: 1
+            failureThreshold: 1
+            timeoutSeconds: 1
+          # the livenessProbe probe details
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /healthcheck
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 3
+            successThreshold: 1
+            failureThreshold: 1
+            timeoutSeconds: 1
           # environment variables for the Pod
           env:
             - name: GCLOUD_PROJECT
