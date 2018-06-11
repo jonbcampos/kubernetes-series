@@ -28,26 +28,26 @@ spec:
           image: gcr.io/PROJECT_NAME/partone-container:latest
           # the readiness probe details
           readinessProbe:
-            httpGet:
-              port: 8080
-              path: /readiness
-              scheme: HTTP
-            initialDelaySeconds: 3
-            periodSeconds: 3
-            successThreshold: 1
-            failureThreshold: 1
-            timeoutSeconds: 1
+            httpGet: # make an HTTP request
+              port: 8080 # port to use
+              path: /readiness # endpoint to hit
+              scheme: HTTP # or HTTPS
+            initialDelaySeconds: 3 # how long to wait before checking
+            periodSeconds: 3 # how long to wait between checks
+            successThreshold: 1 # how many successes to hit before accepting
+            failureThreshold: 1 # how many failures to accept before failing
+            timeoutSeconds: 1 # how long to wait for a response
           # the livenessProbe probe details
           livenessProbe:
-            httpGet:
-              port: 8080
-              path: /healthcheck
-              scheme: HTTP
-            initialDelaySeconds: 3
-            periodSeconds: 3
-            successThreshold: 1
-            failureThreshold: 1
-            timeoutSeconds: 1
+            httpGet: # make an HTTP request
+              port: 8080 # port to use
+              path: /readiness # endpoint to hit
+              scheme: HTTP # or HTTPS
+            initialDelaySeconds: 3 # how long to wait before checking
+            periodSeconds: 3 # how long to wait between checks
+            successThreshold: 1 # how many successes to hit before accepting
+            failureThreshold: 1 # how many failures to accept before failing
+            timeoutSeconds: 1 # how long to wait for a response
           # environment variables for the Pod
           env:
             - name: GCLOUD_PROJECT
