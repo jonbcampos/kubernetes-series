@@ -18,6 +18,9 @@ app.set('case sensitive routing', true);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+let healthy = true;
+let ready = true;
+
 //-------------------------------------
 //
 // setup some routes for us to hit and
@@ -25,9 +28,13 @@ app.use(express.urlencoded({ extended: false }));
 //
 //-------------------------------------
 app.use('/', require('./routes'));
-app.use('/healthcheck', healthCheck());
+app.use('/unhealthy', function(req, res, next){
+    healthy = false;
+    res.status(200).json({ healthy });
+});
+app.use('/healthcheck', healthyIntercept, healthCheck());
 app.use('/readiness', function (req, res, next) {
-    res.status(200).json({ ready: true });
+    res.status(200).json({ ready });
 });
 app.get('/version', function (req, res, next) {
     const version = pkg.version;
@@ -46,6 +53,14 @@ process.on('SIGTERM', function () {
 app.use(function (req, res, next) {
     next(createError(404));
 });
+
+function healthyIntercept(req, res, next){
+    if(healthy){
+        next();
+    } else {
+        next(new Error('unhealthy'));
+    }
+}
 
 //-------------------------------------
 //
