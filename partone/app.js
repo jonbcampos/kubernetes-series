@@ -58,7 +58,10 @@ function healthyIntercept(req, res, next){
     if(healthy){
         next();
     } else {
-        next(new Error('unhealthy'));
+        const err = new Error('unhealthy');
+        err.code = 500;
+        err.status = 500;
+        next(err);
     }
 }
 
