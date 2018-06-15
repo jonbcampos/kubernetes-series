@@ -41,7 +41,7 @@ spec:
           livenessProbe:
             httpGet: # make an HTTP request
               port: 8080 # port to use
-              path: /readiness # endpoint to hit
+              path: /healthcheck # endpoint to hit
               scheme: HTTP # or HTTPS
             initialDelaySeconds: 3 # how long to wait before checking
             periodSeconds: 3 # how long to wait between checks
