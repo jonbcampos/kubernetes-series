@@ -1,0 +1,67 @@
+apiVersion: apps/v1beta1
+kind: Deployment # it is a deployment
+metadata:
+  name: service-1 # name of the Deployment
+  labels:
+    # any Pods with matching labels are included in this Deployment
+    app: kubernetes-series
+    tier: service-1
+spec:
+  # ReplicaSet specification
+  replicas: 3 # we are making 3 Pods
+  selector:
+    matchLabels:
+      # ReplicaSet labels will match Pods with the following labels
+      tier: service-1
+  template:
+    # Pod template
+    metadata:
+      labels:
+        # Pod's labels
+        app: kubernetes-series
+        tier: service-1
+    spec:
+      # Pod specification
+      containers:
+        # the container(s) in this Pod
+        - name: communication-container
+          image: gcr.io/PROJECT_NAME/communication-container:latest
+          # the readiness probe details
+          readinessProbe:
+            httpGet: # make an HTTP request
+              port: 8080 # port to use
+              path: /readiness # endpoint to hit
+              scheme: HTTP # or HTTPS
+            initialDelaySeconds: 3 # how long to wait before checking
+            periodSeconds: 3 # how long to wait between checks
+            successThreshold: 1 # how many successes to hit before accepting
+            failureThreshold: 1 # how many failures to accept before failing
+            timeoutSeconds: 1 # how long to wait for a response
+          # the livenessProbe probe details
+          livenessProbe:
+            httpGet: # make an HTTP request
+              port: 8080 # port to use
+              path: /healthcheck # endpoint to hit
+              scheme: HTTP # or HTTPS
+            initialDelaySeconds: 3 # how long to wait before checking
+            periodSeconds: 3 # how long to wait between checks
+            successThreshold: 1 # how many successes to hit before accepting
+            failureThreshold: 1 # how many failures to accept before failing
+            timeoutSeconds: 1 # how long to wait for a response
+          # environment variables for the Pod
+          env:
+            - name: GCLOUD_PROJECT
+              value: PROJECT_NAME
+            # we are going to use this later
+            # for now it creates a custom endpoint
+            # for this pod
+            - name: POD_ENDPOINT
+              value: service_1
+            - name: FOREIGN_SERVICE
+              value: service_2.default.svc.cluster.local
+            - name: FOREIGN_PATH
+              value: /service_2
+            - name: NODE_ENV
+              value: production
+          ports:
+            - containerPort: 80

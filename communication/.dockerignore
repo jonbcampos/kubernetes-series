@@ -1,0 +1,11 @@
+service-1/node_modules
+.dockerignore
+Dockerfile
+npm-debug.log
+.git
+.hg
+.svn
+test
+k8s
+.nyc_output
+coverage
