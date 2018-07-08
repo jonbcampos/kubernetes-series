@@ -58,9 +58,9 @@ spec:
             - name: POD_ENDPOINT
               value: service
             - name: FOREIGN_SERVICE
-              value: service.default.svc.cluster.local
+              value: external-service.default.svc.cluster.local
             - name: FOREIGN_PATH
-              value: /service
+              value: /feed/@jonbcampos
             - name: NODE_ENV
               value: production
           ports:
