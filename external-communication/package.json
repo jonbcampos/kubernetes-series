@@ -1,0 +1,42 @@
+{
+  "name": "communication-service-1",
+  "version": "0.0.1",
+  "description": "kubernetes blog series - communication",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonbcampos/kubernetes-series"
+  },
+  "author": {
+    "name": "Jonathan Campos",
+    "url": "https://github.com/jonbcampos"
+  },
+  "contributors": [],
+  "homepage": "http://jonbcampos.com/",
+  "bugs": {
+    "url": "https://github.com/jonbcampos/kubernetes-series/issues"
+  },
+  "main": "app.js",
+  "bin": "bin",
+  "engines": {
+    "node": ">=4.3.2"
+  },
+  "scripts": {
+    "start": "node ./bin/www",
+    "debug": "node $NODE_DEBUG_OPTION ./app.js",
+    "auth": "gcloud auth application-default login"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "express-healthcheck": "^0.1.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "nconf": "^0.10.0",
+    "node-sass-middleware": "0.11.0",
+    "request-promise": "^4.2.2"
+  }
+}
