@@ -56,11 +56,11 @@ spec:
             # for now it creates a custom endpoint
             # for this pod
             - name: POD_ENDPOINT
-              value: service_1
+              value: service-1
             - name: FOREIGN_SERVICE
-              value: service_2.default.svc.cluster.local
+              value: service-2.default.svc.cluster.local
             - name: FOREIGN_PATH
-              value: /service_2
+              value: /service-2
             - name: NODE_ENV
               value: production
           ports:
