@@ -12,6 +12,6 @@ spec:
       protocol: TCP
   # It includes a LoadBalancer between Pods
   type: ExternalName
-  externalName: medium.com
+  externalName: jonbcampos.com
   selector:
     app: kubernetes-series

@@ -60,7 +60,7 @@ spec:
             - name: FOREIGN_SERVICE
               value: external-service.default.svc.cluster.local
             - name: FOREIGN_PATH
-              value: /feed/@jonbcampos
+              value: /
             - name: NODE_ENV
               value: production
           ports:

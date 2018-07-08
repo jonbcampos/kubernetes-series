@@ -17,3 +17,4 @@ sed -i "s/PROJECT_NAME/${GCLOUD_PROJECT}/g" ../k8s/deployment.yaml
 echo "create pod-replicaset"
 kubectl apply -f ../k8s/deployment.yaml
 kubectl apply -f ../k8s/service.yaml
+kubectl apply -f ../k8s/external-service.yaml
