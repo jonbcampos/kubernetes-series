@@ -4,6 +4,7 @@ metadata:
   name: service-2 # name of the Deployment
   labels:
     # any Pods with matching labels are included in this Deployment
+    app: service-1
     tier: service-2
 spec:
   # ReplicaSet specification
@@ -17,6 +18,7 @@ spec:
     metadata:
       labels:
         # Pod's labels
+        app: service-1
         tier: service-2
     spec:
       # Pod specification
