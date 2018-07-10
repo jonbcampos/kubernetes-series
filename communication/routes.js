@@ -52,8 +52,16 @@ router.get('/foreign', function (req, res, next) {
         path: config.get('FOREIGN_PATH'),
         agent: false
     };
-    http.get(options, (response) => {
-        res.status(200).json(response);
+    http.get(options, response => {
+        let data = '';
+        response.on('data', chunk => {
+            data += chunk;
+        });
+        response.on('end', () => {
+            res.status(200).json(JSON.parse(data));
+        });
+    }).on('error', err => {
+        throw err;
     });
 });
 
