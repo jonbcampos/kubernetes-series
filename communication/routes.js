@@ -38,7 +38,7 @@ router.get('/api', function (req, res, next) {
     res.status(200).json({ remoteAddress, hostName });
 });
 
-router.get(`/${config.get('POD_ENDPOINT')}`, function (req, res, next) {
+router.get(`${config.get('POD_ENDPOINT')}`, function (req, res, next) {
     const remoteAddress = req.connection.remoteAddress;
     const hostName = os.hostname();
     const requestHost = req.headers.host;

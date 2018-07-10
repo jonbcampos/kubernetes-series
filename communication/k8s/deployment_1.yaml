@@ -4,7 +4,6 @@ metadata:
   name: service-1 # name of the Deployment
   labels:
     # any Pods with matching labels are included in this Deployment
-    app: kubernetes-series
     tier: service-1
 spec:
   # ReplicaSet specification
@@ -18,7 +17,6 @@ spec:
     metadata:
       labels:
         # Pod's labels
-        app: kubernetes-series
         tier: service-1
     spec:
       # Pod specification
@@ -56,7 +54,7 @@ spec:
             # for now it creates a custom endpoint
             # for this pod
             - name: POD_ENDPOINT
-              value: service-1
+              value: /service-1
             - name: FOREIGN_SERVICE
               value: service-2.default.svc.cluster.local
             - name: FOREIGN_PATH
