@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const os = require('os');
-const http = require('http');
+const rp = require('request-promise');
 
 const router = express.Router();
 
@@ -38,7 +38,7 @@ router.get('/api', function (req, res, next) {
     res.status(200).json({ remoteAddress, hostName });
 });
 
-router.get(`${config.get('POD_ENDPOINT')}`, function (req, res, next) {
+router.get(config.get('POD_ENDPOINT'), function (req, res, next) {
     const remoteAddress = req.connection.remoteAddress;
     const hostName = os.hostname();
     const requestHost = req.headers.host;
@@ -46,15 +46,13 @@ router.get(`${config.get('POD_ENDPOINT')}`, function (req, res, next) {
 });
 
 router.get('/foreign', function (req, res, next) {
-    const options = {
-        hostname: config.get('FOREIGN_SERVICE'),
-        port: 80,
-        path: config.get('FOREIGN_PATH'),
-        agent: false
-    };
-    http.get(options, (response) => {
-        res.status(200).json(response);
-    });
+    rp(config.get('FOREIGN_SERVICE') + config.get('FOREIGN_PATH'))
+        .then((response) => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            throw error;
+        });
 });
 
 module.exports = router;

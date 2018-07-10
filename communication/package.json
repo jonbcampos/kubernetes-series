@@ -37,6 +37,7 @@
     "morgan": "~1.9.0",
     "nconf": "^0.10.0",
     "node-sass-middleware": "0.11.0",
+    "request": "^2.87.0",
     "request-promise": "^4.2.2"
   }
 }
