@@ -4,7 +4,7 @@ metadata:
   name: service-1 # name of the Deployment
   labels:
     # any Pods with matching labels are included in this Deployment
-    app: service-1
+    app: kubernetes-series
     tier: service-1
 spec:
   # ReplicaSet specification
@@ -18,7 +18,7 @@ spec:
     metadata:
       labels:
         # Pod's labels
-        app: service-1
+        app: kubernetes-series
         tier: service-1
     spec:
       # Pod specification

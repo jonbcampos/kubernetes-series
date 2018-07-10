@@ -18,3 +18,4 @@ spec:
   type: LoadBalancer
   selector:
     app: kubernetes-series
+    tier: service-2
