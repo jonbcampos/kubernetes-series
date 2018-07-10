@@ -20,8 +20,7 @@ gcloud container clusters create ${CLUSTER_NAME} \
     --preemptible \
     --zone ${INSTANCE_ZONE} \
     --scopes cloud-platform \
-    --num-nodes 3 \
-    --machine-type f1-micro
+    --num-nodes 3
 
 echo "confirm cluster is running"
 gcloud container clusters list
