@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const os = require('os');
-const rp = require('request-promise');
+const http = require('http');
 
 const router = express.Router();
 
@@ -46,13 +46,15 @@ router.get(config.get('POD_ENDPOINT'), function (req, res, next) {
 });
 
 router.get('/foreign', function (req, res, next) {
-    rp(config.get('FOREIGN_SERVICE') + config.get('FOREIGN_PATH'))
-        .then((response) => {
-            res.status(200).json(response);
-        })
-        .catch(error => {
-            throw error;
-        });
+    const options = {
+        hostname: config.get('FOREIGN_SERVICE'),
+        port: 80,
+        path: config.get('FOREIGN_PATH'),
+        agent: false
+    };
+    http.get(options, (response) => {
+        res.status(200).json(response);
+    });
 });
 
 module.exports = router;
