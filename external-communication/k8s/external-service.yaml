@@ -13,6 +13,6 @@ spec:
   # Points to external name
   type: ExternalName
   # the external url
-  externalName: jonbcampos.com
+  externalName: jonbcampos.com/wp-json/wp/v2/posts
   selector:
     app: kubernetes-series
