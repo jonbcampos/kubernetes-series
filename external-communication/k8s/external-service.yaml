@@ -13,6 +13,6 @@ spec:
   # Points to external name
   type: ExternalName
   # the external url
-  externalName: jonbcampos.com
+  externalName: www.jonbcampos.com
   selector:
     app: kubernetes-series
