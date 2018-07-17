@@ -46,14 +46,17 @@ router.get(`/${config.get('POD_ENDPOINT')}`, function (req, res, next) {
 });
 
 router.get('/foreign', function (req, res, next) {
-    const options = {
-        hostname: config.get('FOREIGN_SERVICE'),
-        port: 80,
-        path: config.get('FOREIGN_PATH'),
-        agent: false
-    };
-    http.get(options, (response) => {
-        res.status(200).json(response);
+    const url = config.get('FOREIGN_SERVICE') + config.get('FOREIGN_PATH');
+    http.get(url, response => {
+        let data = '';
+        response.on('data', chunk => {
+            data += chunk;
+        });
+        response.on('end', () => {
+            res.status(200).json(JSON.parse(data));
+        });
+    }).on('error', err => {
+        throw err;
     });
 });
 
