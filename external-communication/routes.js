@@ -53,7 +53,7 @@ router.get('/foreign', function (req, res, next) {
             data += chunk;
         });
         response.on('end', () => {
-            res.status(200).json(JSON.parse(data));
+            res.status(200).send(data);
         });
     }).on('error', err => {
         throw err;
