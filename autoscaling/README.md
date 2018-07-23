@@ -4,7 +4,7 @@ I've learned along the way when using [Kubernetes](https://kubernetes.io/) with
 [Google Cloud Platform](https://cloud.google.com/).
 
 You can read the accompanying post for this folder here: 
-[Kubernetes - Autoscaling](https://medium.com/@jonbcampos/).
+[Kubernetes - Autoscaling](https://medium.com/google-cloud/kubernetes-cluster-autoscaler-f1948a0f686d) and [Kubernetes - Horizontal Pod Scaling](https://medium.com/google-cloud/kubernetes-horizontal-pod-scaling-190e95c258f5).
 
 To run this code here are the quick steps.
 
