@@ -12,6 +12,7 @@ spec:
     spec:
       template:
         spec:
+          restartPolicy: Never
           containers:
             - name: cron-container-cronjob
               image: gcr.io/PROJECT_NAME/cron-container-cronjob:latest
