@@ -1,0 +1,30 @@
+apiVersion: batch/v1beta1
+kind: CronJob # it is a Cron Job
+metadata:
+  name: endpoints-cronjob # name of the CronJob
+spec:
+  schedule: "* * * * *" # run every minute
+  startingDeadlineSeconds: 10 # if a job hasn't starting in this many seconds, skip
+  concurrencyPolicy: Allow # either allow|forbid|replace
+  successfulJobsHistoryLimit: 3 # how many completed jobs should be kept
+  failedJobsHistoryLimit: 1 # how many failed jobs should be kept
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: cron-container-cronjob
+              image: gcr.io/PROJECT_NAME/cron-container-cronjob:latest
+              # environment variables for the Pod
+              env:
+                - name: GCLOUD_PROJECT
+                  value: PROJECT_NAME
+                # we are going to use this later
+                # for now it creates a custom endpoint
+                # for this pod
+                - name: FOREIGN_SERVICE
+                  value: http://endpoints.default.svc.cluster.local/endpoint
+                - name: NODE_ENV
+                  value: production
+              ports:
+                - containerPort: 80

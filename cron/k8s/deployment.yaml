@@ -24,8 +24,8 @@ spec:
       # Pod specification
       containers:
         # the container(s) in this Pod
-        - name: partone-container
-          image: gcr.io/PROJECT_NAME/partone-container:latest
+        - name: cron-container
+          image: gcr.io/PROJECT_NAME/cron-container:latest
           # the readiness probe details
           readinessProbe:
             httpGet: # make an HTTP request

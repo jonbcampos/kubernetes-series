@@ -4,7 +4,8 @@ const config = require('./config');
 const os = require('os');
 
 const router = express.Router();
-
+let callCount = 0;
+let lastCalledAt = null;
 //-------------------------------------
 //
 // Automatically parse request body as JSON
@@ -41,7 +42,16 @@ router.get(`/${config.get('POD_ENDPOINT')}`, function (req, res, next) {
     const remoteAddress = req.connection.remoteAddress;
     const hostName = os.hostname();
     const requestHost = req.headers.host;
-    res.status(200).json({ remoteAddress, hostName, requestHost });
+    callCount += 1;
+    lastCalledAt = new Date();
+    res.status(200).json({ remoteAddress, hostName, requestHost, callCount, lastCalledAt });
+});
+
+router.get('/data', function (req, res, next) {
+    const remoteAddress = req.connection.remoteAddress;
+    const hostName = os.hostname();
+    const requestHost = req.headers.host;
+    res.status(200).json({ remoteAddress, hostName, requestHost, callCount, lastCalledAt });
 });
 
 module.exports = router;

@@ -11,9 +11,5 @@ export CONTAINER_NAME=${PROJECT_NAME}-container
 echo "setup"
 gcloud config set compute/zone ${INSTANCE_ZONE}
 
-echo "name replace"
-sed -i "s/PROJECT_NAME/${GCLOUD_PROJECT}/g" ../k8s/deployment.yaml
-
-echo "create pod-replicaset"
-kubectl apply -f ../k8s/deployment.yaml
-kubectl apply -f ../k8s/service.yaml
+echo "delete cronjob"
+kubectl delete cronjob endpoints-cronjob

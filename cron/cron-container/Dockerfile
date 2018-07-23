@@ -14,7 +14,7 @@
 FROM gcr.io/google_appengine/nodejs
 MAINTAINER Jonathan Campos <jonbcampos@gmail.com>
 RUN /usr/local/bin/install_node '>=0.12.7'
-COPY . /app/
+COPY .. /app/
 RUN npm install --unsafe-perm || \
     ((if [ -f npm-debug.log ]; then \
         cat npm-debug.log; \
