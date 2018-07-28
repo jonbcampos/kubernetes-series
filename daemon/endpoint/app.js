@@ -28,7 +28,7 @@ app.use('/', require('./routes'));
 app.use('/unhealthy', function(req, res, next){
     res.status(200).json({ healthy: true });
 });
-app.use('/healthcheck', healthyIntercept, healthCheck());
+app.use('/healthcheck', healthCheck());
 app.use('/readiness', function (req, res, next) {
     res.status(200).json({ ready: true });
 });

@@ -21,7 +21,6 @@ nconf
 
 // check required settings
 checkConfig('GCLOUD_PROJECT');
-checkConfig('FOREIGN_SERVICE');
 
 function checkConfig(setting) {
     if (!nconf.get(setting)) {
