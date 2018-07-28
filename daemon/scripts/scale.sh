@@ -12,4 +12,6 @@ echo "setup"
 gcloud config set compute/zone ${INSTANCE_ZONE}
 
 echo "scale cluster"
-kubectl scale --replicas=$1
+gcloud container node-pools update default-pool \
+    --cluster=${CLUSTER_NAME} \
+    --num-nodes=$1
