@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: single-job
+spec:
+  completions: 6
+  parallelism: 2
+  template:
+    metadata:
+      labels:
+        app: kubernetes-series
+        tier: job
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: job
+          image: gcr.io/PROJECT_NAME/batchjob-container-job:latest
+          # environment variables for the Pod
+          env:
+          - name: GCLOUD_PROJECT
+            value: PROJECT_NAME
+          - name: MESSAGE
+            value: I am a parallel run job
+          - name: FOREIGN_SERVICE
+            value: http://endpoints.default.svc.cluster.local/parallel
+          - name: NODE_ENV
+            value: production
+          ports:
+          - containerPort: 80
