@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 const app = require('../app');
-const debug = require('debug')('daemon:server');
+const debug = require('debug')('daemonset:server');
 const http = require('http');
 
 /**

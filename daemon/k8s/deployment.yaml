@@ -8,7 +8,7 @@ metadata:
     tier: endpoints
 spec:
   # ReplicaSet specification
-  replicas: 1 # we are making 1 Pod
+  replicas: 3 # we are making 1 Pod
   selector:
     matchLabels:
       # ReplicaSet labels will match Pods with the following labels
