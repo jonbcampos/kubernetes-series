@@ -21,7 +21,6 @@ nconf
 
 // check required settings
 checkConfig('GCLOUD_PROJECT');
-checkConfig('POD_ENDPOINT');
 
 function checkConfig(setting) {
     if (!nconf.get(setting)) {
