@@ -3,8 +3,10 @@ kind: Job
 metadata:
   name: parallel-job
 spec:
-  completions: 6
-  parallelism: 2
+  completions: 6 # number of times to run
+  parallelism: 2 # number of pods that can run in parallel
+  backoffLimit: 6 # number of retries before throwing error
+  activeDeadlineSeconds: 10 # time to allow job to run
   template:
     metadata:
       labels:

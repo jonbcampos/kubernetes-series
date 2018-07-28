@@ -3,6 +3,8 @@ kind: Job
 metadata:
   name: single-job
 spec:
+  backoffLimit: 6 # number of retries before throwing error
+  activeDeadlineSeconds: 10 # time to allow job to run
   template:
     metadata:
       labels:

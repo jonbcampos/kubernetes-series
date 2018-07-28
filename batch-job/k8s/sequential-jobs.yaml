@@ -3,7 +3,9 @@ kind: Job
 metadata:
   name: sequential-job
 spec:
-  completions: 3
+  completions: 3 # number of times to run
+  backoffLimit: 6 # number of retries before throwing error
+  activeDeadlineSeconds: 10 # time to allow job to run
   template:
     metadata:
       labels:
