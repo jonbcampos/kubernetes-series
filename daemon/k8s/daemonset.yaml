@@ -1,15 +1,24 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: DaemonSet # it is a daemonset
 metadata:
-  name: daemonset-pods
+  name: daemonset-pods # name of the daemon set
   labels:
+    # any Pods with matching labels are included in this Daemonset
     app: kubernetes-series
     tier: monitor
 spec:
   selector:
+    # Pods will match with the following labels
     matchLabels:
       name: daemonset-pods
   template:
+    # Pod Template
     metadata:
+      # Pod's labels
       labels:
         name: daemonset-pods
+    spec:
+      # the container(s) in this Pod
+      containers:
+        - name: daemon-container
+          image: gcr.io/PROJECT_NAME/daemon-container-daemon:latest

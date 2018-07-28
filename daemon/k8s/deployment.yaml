@@ -24,7 +24,7 @@ spec:
       # Pod specification
       containers:
         # the container(s) in this Pod
-        - name: cron-container
+        - name: endpoint-container
           image: gcr.io/PROJECT_NAME/daemon-container:latest
           # the readiness probe details
           readinessProbe:
