@@ -9,6 +9,7 @@ nconf
     // 2. env variables
     .env([
         'GCLOUD_PROJECT',
+        'FOREIGN_SERVICE',
         'MESSAGE'
     ])
     // 3. config file
@@ -16,11 +17,13 @@ nconf
     // 4. defaults
     .defaults({
         GCLOUD_PROJECT: '',
+        FOREIGN_SERVICE: '',
         MESSAGE: 'Configure My Message'
     });
 
 // check required settings
 checkConfig('GCLOUD_PROJECT');
+checkConfig('FOREIGN_SERVICE');
 
 function checkConfig(setting) {
     if (!nconf.get(setting)) {
