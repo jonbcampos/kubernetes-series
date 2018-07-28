@@ -22,3 +22,9 @@ spec:
       containers:
         - name: daemon-container
           image: gcr.io/PROJECT_NAME/daemon-container-daemon:latest
+          # environment variables for the Pod
+          env:
+          - name: GCLOUD_PROJECT
+            value: PROJECT_NAME
+          ports:
+          - containerPort: 80
