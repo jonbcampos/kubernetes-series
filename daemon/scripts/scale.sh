@@ -12,6 +12,9 @@ echo "setup"
 gcloud config set compute/zone ${INSTANCE_ZONE}
 
 echo "scale cluster"
-gcloud container node-pools update default-pool \
+gcloud container node-pools delete my-pool \
+    --cluster=${CLUSTER_NAME} \
+    --quite
+gcloud container node-pools create my-pool \
     --cluster=${CLUSTER_NAME} \
     --num-nodes=$1
