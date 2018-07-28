@@ -12,7 +12,7 @@ echo "setup"
 gcloud config set compute/zone ${INSTANCE_ZONE}
 
 echo "name replace"
-sed -i "s/PROJECT_NAME/${GCLOUD_PROJECT}/g" ../k8s/parallel-job.yaml
+sed -i "s/PROJECT_NAME/${GCLOUD_PROJECT}/g" ../k8s/parallel-jobs.yaml
 
 echo "create parallel job"
-kubectl apply -f ../k8s/parallel-job.yaml
+kubectl apply -f ../k8s/parallel-jobs.yaml
