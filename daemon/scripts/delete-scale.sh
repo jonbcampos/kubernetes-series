@@ -15,6 +15,3 @@ echo "scale cluster"
 gcloud container node-pools delete my-pool \
     --cluster=${CLUSTER_NAME} \
     --quiet
-gcloud container node-pools create my-pool \
-    --cluster=${CLUSTER_NAME} \
-    --num-nodes=$1
