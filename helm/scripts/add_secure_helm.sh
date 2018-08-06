@@ -16,7 +16,7 @@ openssl req -key ca.key.pem -batch -new -x509 -days 7300 -sha256 -out ca.cert.pe
 openssl genrsa -out ./tiller.key.pem 4096
 openssl genrsa -out ./helm.key.pem 4096
 openssl req -key tiller.key.pem -batch -new -sha256 -out tiller.csr.pem
-openssl req -key tiller.key.pem -batch -new -sha256 -out helm.csr.pem
+openssl req -key helm.key.pem -batch -new -sha256 -out helm.csr.pem
 openssl x509 -req -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -in tiller.csr.pem -out tiller.cert.pem
 openssl x509 -req -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -in tiller.csr.pem -out helm.cert.pem
 
