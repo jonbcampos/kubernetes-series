@@ -13,12 +13,16 @@ rm ca.* tiller.* helm.*
 echo "create certs"
 openssl genrsa -out ./ca.key.pem 4096
 openssl req -key ca.key.pem -batch -new -x509 -days 7300 -sha256 -out ca.cert.pem -extensions v3_ca
+# one per tiller host
 openssl genrsa -out ./tiller.key.pem 4096
+# one PER user (in this case helm is the user)
 openssl genrsa -out ./helm.key.pem 4096
-openssl req -key tiller.key.pem -batch -new -sha256 -out tiller.csr.pem
-openssl req -key helm.key.pem -batch -new -sha256 -out helm.csr.pem
+# create certificates for each of the keys
+openssl req -key tiller.key.pem -new -sha256 -out tiller.csr.pem
+openssl req -key helm.key.pem -new -sha256 -out helm.csr.pem
+# sign each of the CSRs with the CA cert
 openssl x509 -req -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -in tiller.csr.pem -out tiller.cert.pem
-openssl x509 -req -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -in tiller.csr.pem -out tiller.cert.pem
+openssl x509 -req -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -in helm.csr.pem -out helm.cert.pem
 
 echo "initialize helm"
 helm init \
