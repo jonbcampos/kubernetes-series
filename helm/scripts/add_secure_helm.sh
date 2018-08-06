@@ -18,10 +18,9 @@ openssl genrsa -out ./helm.key.pem 4096
 openssl req -key tiller.key.pem -batch -new -sha256 -out tiller.csr.pem
 openssl req -key helm.key.pem -batch -new -sha256 -out helm.csr.pem
 openssl x509 -req -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -in tiller.csr.pem -out tiller.cert.pem
-openssl x509 -req -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -in tiller.csr.pem -out helm.cert.pem
+openssl x509 -req -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -in tiller.csr.pem -out tiller.cert.pem
 
 echo "initialize helm"
-kubectl create -f values/rbac-config.yaml
 helm init \
     --tiller-tls \
     --tiller-tls-cert ./tiller.cert.pem \
