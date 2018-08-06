@@ -2,5 +2,5 @@
 
 echo "install redis"
 helm install stable/redis \
-    --values values-production.yaml \
+    --values values/values-production.yaml \
     --name redis-system
