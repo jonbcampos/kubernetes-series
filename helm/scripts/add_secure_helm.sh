@@ -7,6 +7,9 @@ kubectl create clusterrolebinding tiller \
     --clusterrole cluster-admin \
     --serviceaccount=kube-system:tiller
 
+echo "create tiller namespace"
+kubectl create namespace tiller
+
 echo "preclean"
 rm ca.* tiller.* helm.*
 
