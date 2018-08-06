@@ -14,12 +14,12 @@ echo "preclean"
 rm ca.* tiller.* helm.*
 
 echo "create certs"
-openssl genrsa -out ./ca.key.pem 4096
+openssl genrsa -out ca.key.pem 4096
 openssl req -key ca.key.pem -batch -new -x509 -days 7300 -sha256 -out ca.cert.pem -extensions v3_ca
 # one per tiller host
-openssl genrsa -out ./tiller.key.pem 4096
+openssl genrsa -out tiller.key.pem 4096
 # one PER user (in this case helm is the user)
-openssl genrsa -out ./helm.key.pem 4096
+openssl genrsa -out helm.key.pem 4096
 # create certificates for each of the keys
 openssl req -key tiller.key.pem -new -batch -sha256 -out tiller.csr.pem
 openssl req -key helm.key.pem -new -batch -sha256 -out helm.csr.pem
@@ -40,10 +40,10 @@ openssl x509 -req \
 echo "initialize helm"
 helm init \
     --tiller-tls \
-    --tiller-tls-cert ./tiller.cert.pem \
-    --tiller-tls-key ./tiller.key.pem \
+    --tiller-tls-cert tiller.cert.pem \
+    --tiller-tls-key tiller.key.pem \
     --tiller-tls-verify \
-    --tls-ca-cert ./ca.cert.pem \
+    --tls-ca-cert ca.cert.pem \
     --tiller-namespace tiller \
     --service-account tiller
 helm repo update
