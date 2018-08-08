@@ -13,29 +13,48 @@ kubectl create namespace tiller
 echo "preclean"
 rm ca.* tiller.* helm.*
 
+echo "set key values"
+EXPORT SUBJECT="/C=US/ST=Texas/L=Dallas/O=Internet Widgits Pty Ltd/OU=DEVOPS/CN=example.com"
+
 echo "create certs"
 openssl genrsa -out ca.key.pem 4096
-openssl req -key ca.key.pem -batch -new -x509 -days 7300 -sha256 -out ca.cert.pem -extensions v3_ca
+openssl req -key ca.key.pem -new -x509 \
+    -days 7300 -sha256 \
+    -out ca.cert.pem \
+    -extensions v3_ca \
+    -subj ${SUBJECT}
 # one per tiller host
 openssl genrsa -out tiller.key.pem 4096
 # one PER user (in this case helm is the user)
 openssl genrsa -out helm.key.pem 4096
 # create certificates for each of the keys
-openssl req -key tiller.key.pem -new -batch -sha256 -out tiller.csr.pem
-openssl req -key helm.key.pem -new -batch -sha256 -out helm.csr.pem
+openssl req \
+    -key tiller.key.pem \
+    -new \
+    -sha256 \
+    -out tiller.csr.pem \
+    -subj ${SUBJECT}
+openssl req \
+    -key helm.key.pem \
+    -new \
+    -sha256 \
+    -out helm.csr.pem \
+    -subj ${SUBJECT}
 # sign each of the CSRs with the CA cert
 openssl x509 -req \
     -CA ca.cert.pem \
     -CAkey ca.key.pem \
     -CAcreateserial \
     -in tiller.csr.pem \
-    -out tiller.cert.pem -days 365
+    -out tiller.cert.pem \
+    -days 365
 openssl x509 -req \
     -CA ca.cert.pem \
     -CAkey ca.key.pem \
     -CAcreateserial \
     -in helm.csr.pem \
-    -out helm.cert.pem -days 365
+    -out helm.cert.pem \
+    -days 365
 
 echo "initialize helm"
 helm init \

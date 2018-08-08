@@ -21,6 +21,7 @@ gcloud container clusters create ${CLUSTER_NAME} \
     --zone ${INSTANCE_ZONE} \
     --scopes cloud-platform \
     --enable-autorepair \
+    --enable-autoupgrade \
     --enable-autoscaling --min-nodes 1 --max-nodes 4 \
     --num-nodes 3
 
