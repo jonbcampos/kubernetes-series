@@ -15,6 +15,7 @@ rm ca.* tiller.* helm.*
 
 echo "set key values"
 export SUBJECT="/C=US/ST=Texas/L=Dallas/O=Internet Widgits Pty Ltd/OU=DEVOPS/CN=example.com"
+echo $SUBJECT
 
 echo "create certs"
 openssl genrsa -out ca.key.pem 4096
