@@ -65,11 +65,12 @@ helm init \
     --tiller-tls-key tiller.key.pem \
     --tiller-tls-verify \
     --tls-ca-cert ca.cert.pem \
+    --tiller-namespace tiller \
     --service-account tiller
 helm repo update
 
 echo "verify helm"
-kubectl get deploy,svc tiller-deploy -n kube-system
+kubectl get deploy,svc tiller-deploy -n kube-system:tiller
 helm ls \
     --tls \
     --tls-ca-cert ca.cert.pem \
