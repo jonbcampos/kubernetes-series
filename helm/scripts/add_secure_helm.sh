@@ -3,15 +3,14 @@
 echo "install helm"
 curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
 
-kubectl --namespace kube-system create sa tiller
+# kubectl --namespace kube-system create sa tiller
 kubectl create -f values/rbac-config.yaml
-#kubectl create clusterrolebinding tiller \
-#    --clusterrole cluster-admin \
-#    --serviceaccount kube-system:tiller
 
 echo "create tiller namespace"
 kubectl create namespace tiller
-
+kubectl create serviceaccount tiller --namespace tiller
+kubectl create -f role-tiller.yaml
+kubectl create -f rolebinding-tiller.yaml
 
 echo "preclean"
 rm ca.* tiller.* helm.*
@@ -67,7 +66,7 @@ helm init \
     --tiller-tls-verify \
     --tls-ca-cert ca.cert.pem \
     --tiller-namespace tiller \
-    --service-account kube-system:tiller
+    --service-account tiller
 helm repo update
 
 echo "verify helm"
