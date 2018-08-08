@@ -15,7 +15,6 @@ rm ca.* tiller.* helm.*
 
 echo "set key values"
 export SUBJECT="/C=US/ST=Texas/L=Dallas/O=Internet Widgits Pty Ltd/OU=DEVOPS/CN=example.com"
-echo $SUBJECT
 
 echo "create certs"
 openssl genrsa -out ca.key.pem 4096
@@ -23,7 +22,7 @@ openssl req -key ca.key.pem -new -x509 \
     -days 7300 -sha256 \
     -out ca.cert.pem \
     -extensions v3_ca \
-    -subj ${SUBJECT}
+    -subj "${SUBJECT}"
 # one per tiller host
 openssl genrsa -out tiller.key.pem 4096
 # one PER user (in this case helm is the user)
@@ -34,13 +33,13 @@ openssl req \
     -new \
     -sha256 \
     -out tiller.csr.pem \
-    -subj ${SUBJECT}
+    -subj "${SUBJECT}"
 openssl req \
     -key helm.key.pem \
     -new \
     -sha256 \
     -out helm.csr.pem \
-    -subj ${SUBJECT}
+    -subj "${SUBJECT}"
 # sign each of the CSRs with the CA cert
 openssl x509 -req \
     -CA ca.cert.pem \
