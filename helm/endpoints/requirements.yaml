@@ -1,4 +1,0 @@
-dependencies:
-  - name: redis
-    repository: https://github.com/helm/charts/tree/master/stable/redis
-    version: 3.7.6
