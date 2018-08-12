@@ -22,8 +22,9 @@ env:
   podEndpoint: endpoint
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
+  targetPort: 8080
 
 ingress:
   enabled: false
