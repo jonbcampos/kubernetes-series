@@ -25,7 +25,7 @@ spec:
       containers:
         # the container(s) in this Pod
         - name: partone-container
-          image: gcr.io/PROJECT_NAME/partone-container:latest
+          image: gcr.io/PROJECT_NAME/helm-container:latest
           # the readiness probe details
           readinessProbe:
             httpGet: # make an HTTP request
