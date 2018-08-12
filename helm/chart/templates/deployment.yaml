@@ -1,0 +1,69 @@
+apiVersion: apps/v1beta2
+kind: Deployment # it is a deployment
+metadata:
+  name: {{ template "chart.fullname" . }} # name of the Deployment
+  labels:
+    # any Pods with matching labels are included in this Deployment
+    app: {{ template "chart.name" . }}
+    chart: {{ template "chart.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  # ReplicaSet specification
+  replicas: {{ .Values.replicaCount }} # we are making 3 Pods
+  selector:
+    matchLabels:
+      # ReplicaSet labels will match Pods with the following labels
+      app: {{ template "chart.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    # Pod template
+    metadata:
+      labels:
+        # Pod's labels
+        app: {{ template "chart.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      # Pod specification
+      containers:
+        # the container(s) in this Pod
+        - name: {{ .Chart.Name }}
+          image: gcr.io/{{ .Values.image.project }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          # the readiness probe details
+          readinessProbe:
+            httpGet: # make an HTTP request
+              port: {{ .Values.readiness.port }} # port to use
+              path: {{ .Values.readiness.path }} # endpoint to hit
+              scheme: HTTP # or HTTPS
+            initialDelaySeconds: 3 # how long to wait before checking
+            periodSeconds: 3 # how long to wait between checks
+            successThreshold: 1 # how many successes to hit before accepting
+            failureThreshold: 1 # how many failures to accept before failing
+            timeoutSeconds: 1 # how long to wait for a response
+          # the livenessProbe probe details
+          livenessProbe:
+            httpGet: # make an HTTP request
+              port: {{ .Values.liveness.port }} # port to use
+              path: {{ .Values.liveness.path }} # endpoint to hit
+              scheme: HTTP # or HTTPS
+            initialDelaySeconds: 3 # how long to wait before checking
+            periodSeconds: 3 # how long to wait between checks
+            successThreshold: 1 # how many successes to hit before accepting
+            failureThreshold: 1 # how many failures to accept before failing
+            timeoutSeconds: 1 # how long to wait for a response
+          # environment variables for the Pod
+          env:
+            - name: GCLOUD_PROJECT
+              value: {{ .Values.image.project }}
+            # we are going to use this later
+            # for now it creates a custom endpoint
+            # for this pod
+            - name: POD_ENDPOINT
+              value: {{ .Values.env.podEndpoint }}
+            - name: NODE_ENV
+              value: production
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
