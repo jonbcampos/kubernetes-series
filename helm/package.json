@@ -1,7 +1,7 @@
 {
-  "name": "partone",
+  "name": "helm",
   "version": "0.0.1",
-  "description": "kubernetes blog series part one",
+  "description": "kubernetes blog series",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
