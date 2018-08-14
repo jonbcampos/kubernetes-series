@@ -10,6 +10,11 @@ echo "add istio to the path"
 export PATH=$PWD/bin:$PATH
 
 echo "install istio"
-helm install install/kubernetes/helm/istio \
-    --name istio \
-    --namespace istio-system
+# option 1
+kubectl create -f install/kubernetes/helm/helm-service-account.yaml
+helm init --service-account tiller
+helm install install/kubernetes/helm/istio --name istio --namespace istio-system
+# option 2
+# helm template install/kubernetes/helm/istio --name istio --namespace istio-system > $HOME/istio.yaml
+# kubectl create namespace istio-system
+# kubectl create -f $HOME/istio.yaml
