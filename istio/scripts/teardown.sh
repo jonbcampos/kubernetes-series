@@ -19,5 +19,7 @@ echo "remove container"
 gcloud container images delete gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} --force-delete-tags --quiet
 
 echo "cleanup files"
-rm ~/.helm -rf
-rm ~/istio.yaml
+rm $(helm home) -rf
+rm ca.* tiller.* helm.* istio.*
+export ISTIO_VERSION=1.0.0
+rm istio-${ISTIO_VERSION} -rf

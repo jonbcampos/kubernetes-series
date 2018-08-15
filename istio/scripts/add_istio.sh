@@ -13,8 +13,8 @@ echo "install istio"
 # option 1
 # kubectl create -f install/kubernetes/helm/helm-service-account.yaml
 # helm init --service-account tiller
-# helm install install/kubernetes/helm/istio --name istio --namespace istio-system
-# option 2
-helm template install/kubernetes/helm/istio --name istio --namespace istio-system > $HOME/istio.yaml
-kubectl create namespace istio-system
-kubectl create -f $HOME/istio.yaml
+helm install install/kubernetes/helm/istio --name istio --namespace istio-system
+# # option 2
+# helm template install/kubernetes/helm/istio --name istio --namespace istio-system > istio.yaml
+# kubectl create namespace istio-system
+# kubectl create -f istio.yaml
