@@ -49,4 +49,4 @@ echo "enable services"
 gcloud services enable cloudbuild.googleapis.com
 
 echo "building containers"
-gcloud container builds submit -t gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} ../
+gcloud submit -t gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} ../
