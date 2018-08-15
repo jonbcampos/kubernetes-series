@@ -3,7 +3,7 @@
 export ISTIO_VERSION=1.0.0
 
 echo "download istio"
-curl -L https://git.io/getLatestIstio | sh -
+curl -L https://git.io/getLatestIstio | ISTIO_VERSION=${ISTIO_VERSION} sh -
 cd istio-${ISTIO_VERSION}
 
 echo "add istio to the path"
