@@ -20,4 +20,3 @@ gcloud container images delete gcr.io/${GCLOUD_PROJECT}/${CONTAINER_NAME} --forc
 
 echo "cleanup files"
 rm ~/.helm -rf
-rm ~/istio.yaml
