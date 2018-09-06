@@ -8,4 +8,4 @@ while [ -z $external_ip ]; do
   external_ip=$(kubectl get svc $1 --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
   [ -z "$external_ip" ] && sleep 10
 done
-echo 'End point ready:' && echo $external_ip
+echo 'End point ready:' && echo "http://${external_ip}"
