@@ -42,6 +42,6 @@ properties:
     
 outputs:
   properties:
-  - clusterName
+  - clusterName:
     description: cluster name
     type: string
