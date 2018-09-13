@@ -1,0 +1,47 @@
+info:
+  title: Cluster Template
+  author: Jonathan Campos
+  description: Creates a Kubernetes (GKE) Cluster
+  version: 1.0
+  
+imports:
+- path: cluster.jinja
+
+required:
+- zones
+- description
+
+properties:
+  zones:
+    type: array
+    description: array of zones
+    
+  description:
+    type: string
+    description: description of cluster
+    
+  initialNodeCount:
+    type: integer
+    description: initial node count
+    default: 1
+  
+  machineType:
+    type: string
+    description: machine type for nodes
+    efault: n1-standard-1
+  
+  minNodeCount:
+    type: integer
+    description: minimum allowed nodes for scaling
+    default: 1
+  
+  maxNodeCount:
+    type: integer
+    description: maximum allowed nodes for scaling
+    default: 3
+    
+outputs:
+  properties:
+  - clusterName
+    description: cluster name
+    type: string

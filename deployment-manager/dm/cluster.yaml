@@ -11,3 +11,5 @@ resources:
     - us-central1-a
     - us-central1-b
     initialNodeCount: 1
+    minNodeCount: 1
+    maxNodeCount: 4
