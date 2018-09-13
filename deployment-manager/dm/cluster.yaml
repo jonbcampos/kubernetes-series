@@ -3,7 +3,7 @@ imports:
   name: cluster.jinja
 
 resources:                             
-- name: deploy-cluster
+- name: deploy
   type: cluster.jinja        
   properties:
     description: "Deploy Cluster"
