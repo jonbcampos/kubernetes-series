@@ -12,4 +12,4 @@ echo "setup"
 gcloud config set compute/zone ${INSTANCE_ZONE}
 
 echo "deploy with deployment manager"
-gcloud deployment-manager deployments delete dm-cluster
+gcloud deployment-manager deployments delete dm-cluster --quiet

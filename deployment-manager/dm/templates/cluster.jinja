@@ -6,7 +6,7 @@ resources:
     zone: {{ properties['zones'][0] }}
     cluster:
       description: {{ properties['description'] }}
-      initialClusterVersion: '1.9.7-gke.1'
+      initialClusterVersion: '1.9.7-gke.6'
       locations: {{ properties['zones'] }}
       nodePools:
       - name: {{ env['name'] }}-pool
