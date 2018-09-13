@@ -1,0 +1,13 @@
+imports:
+- path: templates/cluster.jinja        
+  name: cluster.jinja
+
+resources:                             
+- name: deploy-cluster
+  type: cluster.jinja        
+  properties:
+    description: "Deploy Cluster"
+    zones:
+    - us-central1-a
+    - us-central1-b
+    initialNodeCount: 1
