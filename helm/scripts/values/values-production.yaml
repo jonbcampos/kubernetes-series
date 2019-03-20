@@ -94,7 +94,7 @@ master:
   ## Can be used to disable Redis commands for security reasons.
   ## ref: https://github.com/bitnami/bitnami-docker-redis#disabling-redis-commands
   ##
-  disableCommands: "FLUSHDB,FLUSHALL"
+  disableCommands: ["FLUSHDB,FLUSHALL"]
   ## Enable persistence using Persistent Volume Claims
   ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
   ##
