@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# exit on error
+set -eo pipefail
 
 echo "install helm"
 curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
@@ -13,7 +15,7 @@ kubectl create -f values/role-tiller.yaml
 kubectl create -f values/rolebinding-tiller.yaml
 
 echo "preclean"
-rm ca.* tiller.* helm.*
+rm -f ca.* tiller.* helm.*
 
 echo "set key values"
 export SUBJECT="/C=US/ST=Texas/L=Dallas/O=Internet Widgits Pty Ltd/OU=DEVOPS/CN=example.com"
@@ -68,8 +70,14 @@ helm init \
     --service-account tiller
 helm repo update
 
-echo "verify helm"
+echo "verify tiller deployment"
 kubectl get deploy,svc tiller-deploy -n kube-system
+
+echo "waiting for tiller pod to become available"
+pod=$(kubectl get pod --namespace kube-system --selector="name=tiller" --output jsonpath='{.items[0].metadata.name}')
+kubectl wait --for=condition=Ready pod/$pod --timeout=60s --namespace kube-system
+
+echo "verify helm tls"
 helm ls \
     --tls \
     --tls-ca-cert ca.cert.pem \
@@ -82,5 +90,5 @@ cp ca.cert.pem $(helm home)/ca.pem
 cp helm.cert.pem $(helm home)/cert.pem
 cp helm.key.pem $(helm home)/key.pem
 
-echo "verify security"
+echo "final verification of helm without specifying certs path"
 helm ls --tls
