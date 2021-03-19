@@ -2,7 +2,7 @@ Flask==0.10.1
 gevent==1.0.1
 greenlet==0.4.5
 itsdangerous==0.24
-Jinja2==2.7.3
+Jinja2==2.11.3
 locustio==0.7.2
 MarkupSafe==0.23
 msgpack-python==0.4.6
